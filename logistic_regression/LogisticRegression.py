@@ -62,9 +62,10 @@ class LogisticRegression:
                 dW = -self.X.T.dot(self.y - probs) / m 
                 db = -np.sum(self.y - probs) / m
 
-                W = np.diag(np.squeeze(probs * (1-probs)))
-                hessionW = self.X.T.dot(W).dot(self.X) / m 
-                hessionb = np.sum(W) / m 
+                # W = np.diag(np.squeeze(probs * (1-probs)))
+                # hessionW = self.X.T.dot(W).dot(self.X) / m 
+                hessionW = (self.X.T * probs.T).dot(self.X * (1-probs)) / m 
+                hessionb = np.sum(probs * (1-probs)) / m 
 
                 inv_hessionW = np.linalg.inv(hessionW)
                 inv_hessionb = 1/ hessionb
